@@ -7,6 +7,15 @@ class UsersController < ApplicationController
   
   def index
     @users = User.paginate(page: params[:page])
+    if params[:name].present?
+      @users = @users.get_by_name params[:name]
+      if @users.count >= 1
+        flash.now[:success] = "検索結果は#{@users.count}件です"
+      else
+        flash[:success] = "検索結果は0件です"
+        redirect_to users_url
+      end
+    end
   end
   
   def show

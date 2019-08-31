@@ -1,6 +1,18 @@
-<% provide(:title, 'All Users') %>
-<h1>ユーザー一覧</h1>
-
+<% if flash[:success] == "検索結果は#{@users.count}件です" %>
+  <% provide(:title, 'Search Users') %>
+  <h1>検索結果</h1>
+<% else %>
+  <% provide(:title, 'All Users') %>
+  <h1>ユーザー一覧</h1>
+<% end %>
+<div>
+  <% flash %>
+  <p>ユーザー名検索</p>
+  <%= form_tag(users_path, method: "get") do %>
+    <%= text_field_tag :name, params[:name] %>
+    <%= submit_tag '検索' %>
+  <% end %>
+</div>
 <div class="col-md-10 col-md-offset-1">
   <%= will_paginate %>
   <table class="table table-condensed table-hover" id="table-users">
