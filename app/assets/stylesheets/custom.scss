@@ -134,3 +134,17 @@ p {
 .modal-dialog-center {
   padding-top: 10%;
 }
+
+/* 名前検索位置調整 */
+.user-search {
+  width: 196px;
+  margin: 0 20px 0 auto;
+  p {
+    font-weight: 600;
+    margin-bottom: -2px;
+  }
+}
+
+.btn-search {
+  margin-left: -4px;
+}

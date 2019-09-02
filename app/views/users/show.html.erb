@@ -55,11 +55,11 @@
               <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
             <% end %>
           </td>
-          <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
-          <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td>
+          <td><%= l(day.started_at.floor_to(15.minutes), format: :time) if day.started_at.present? %></td>
+          <td><%= l(day.finished_at.floor_to(15.minutes), format: :time) if day.finished_at.present? %></td>
           <td>
             <% if day.started_at.present? && day.finished_at.present? %>
-              <%= str_times = working_times(day.started_at, day.finished_at) %>
+              <%= str_times = working_times(day.started_at.floor_to(15.minutes), day.finished_at.floor_to(15.minutes)) %>
               <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
             <% end %>
           </td>
@@ -78,7 +78,7 @@
       </tr>
       <tr>
         <td colspan="2"><%= @attendances.count %></td>
-        <td colspan="2"><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td>
+        <td colspan="2"><%= format_basic_info(@user.work_time.floor_to(15.minutes)).to_f * @worked_sum %></td>
         <td colspan="2"><%= format("%.2f", @total_working_times.to_f) %></td>
       </tr>
     </tfoot>    
