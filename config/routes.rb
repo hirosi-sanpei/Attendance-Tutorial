@@ -12,9 +12,13 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
+      get 'now_works'
       get 'attendances/edit_one_month'
       patch 'attendances/update_one_month'
     end
     resources :attendances, only: :update
+      member do
+        get 'now_works'
+      end
   end
 end
